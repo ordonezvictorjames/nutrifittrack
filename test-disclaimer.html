@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Disclaimer Modal</title>
+</head>
+<body>
+  <h1>Test Disclaimer Modal</h1>
+  
+  <h2>Current Storage Values:</h2>
+  <div id="storage-info"></div>
+  
+  <h2>Actions:</h2>
+  <button onclick="clearStorage()">Clear All Storage</button>
+  <button onclick="testTrigger()">Test Trigger Disclaimer</button>
+  <button onclick="checkStorage()">Check Storage</button>
+  
+  <script>
+    function checkStorage() {
+      const showDisclaimer = sessionStorage.getItem('nutrifittrack-show-disclaimer');
+      const access = sessionStorage.getItem('nutrifittrack-access');
+      const accepted = localStorage.getItem('nutrifittrack-disclaimer-accepted');
+      
+      document.getElementById('storage-info').innerHTML = `
+        <p><strong>sessionStorage.nutrifittrack-show-disclaimer:</strong> ${showDisclaimer}</p>
+        <p><strong>sessionStorage.nutrifittrack-access:</strong> ${access}</p>
+        <p><strong>localStorage.nutrifittrack-disclaimer-accepted:</strong> ${accepted}</p>
+      `;
+    }
+    
+    function clearStorage() {
+      sessionStorage.clear();
+      localStorage.clear();
+      alert('All storage cleared!');
+      checkStorage();
+    }
+    
+    function testTrigger() {
+      sessionStorage.setItem('nutrifittrack-show-disclaimer', 'true');
+      sessionStorage.setItem('nutrifittrack-access', 'true');
+      alert('Flags set! Redirecting to calculator...');
+      window.location.href = 'calculator.html';
+    }
+    
+    // Check storage on load
+    checkStorage();
+  </script>
+</body>
+</html>
